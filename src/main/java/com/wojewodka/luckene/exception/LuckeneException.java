@@ -1,4 +1,4 @@
-package com.wojewodka.luckene;
+package com.wojewodka.luckene.exception;
 
 /**
  * Simple {@link RuntimeException} which is used in most path of luckene library.

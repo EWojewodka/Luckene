@@ -1,4 +1,4 @@
-package com.wojewodka.example.components;
+package com.wojewodka.example;
 
 import com.wojewodka.luckene.index.LuckeneDirectoryConfiguration;
 import com.wojewodka.luckene.index.impl.SimpleLuckeneRepository;
@@ -9,8 +9,7 @@ public class ExampleLuckeneRepository extends SimpleLuckeneRepository<ExamplePoj
 
 	@Override
 	protected LuckeneDirectoryConfiguration.LuckeneDirectoryConfigurationBuilder config() {
-		return LuckeneDirectoryConfiguration.builder()
-			.code("example_pojo");
+		return LuckeneDirectoryConfiguration.builder("example_pojo");
 	}
 
 }

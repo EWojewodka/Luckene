@@ -1,10 +1,9 @@
 package com.wojewodka.luckene.index.impl;
 
+import com.wojewodka.luckene.exception.LuckeneMappingException;
 import com.wojewodka.luckene.index.LuckeneRepository;
 import com.wojewodka.luckene.index.LuckeneWriter;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.document.TextField;
+import com.wojewodka.luckene.mapper.LuckeneMapper;
 import org.apache.lucene.index.IndexWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -17,13 +16,14 @@ public class SimpleLuckeneWriter<T> implements LuckeneWriter<T> {
 	@Lazy
 	private LuckeneRepository<T> repository;
 
+	@Autowired
+	private LuckeneMapper luckeneMapper;
+
 	@Override
-	public void write(T obj) throws IOException {
+	public void write(T obj) throws IOException, LuckeneMappingException {
 		IndexWriter indexWriter = repository.getConfiguration().getIndexWriter();
 		indexWriter.commit();
-		Document doc = new Document();
-		doc.add(new TextField("name", "Emil", Field.Store.YES));
-		indexWriter.addDocument(doc);
+		indexWriter.addDocument(luckeneMapper.serialize(obj));
 		indexWriter.commit();
 	}
 
